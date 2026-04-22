@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diego Salas - Computational Research & Precision Medicine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #001122 0%, #1a1a1a 100%);
+            color: #f0f0f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollytelling Container */
+        .scroll-container {
+            width: 100%;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        /* Section Base */
+        .section {
+            width: 100%;
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 60px 100px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Section Numbers */
+        .section-number {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            font-size: 120px;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            color: rgba(255, 255, 255, 0.05);
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .section-number-right {
+            left: auto;
+            right: 60px;
+        }
+
+        .section-label {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            z-index: 2;
+        }
+
+        .section-label-right {
+            left: auto;
+            right: 60px;
+        }
+
+        /* Background Particles Animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.08;
+        }
+
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: white;
+            border-radius: 50%;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(30px);
+                opacity: 0;
+            }
+        }
+
+        /* Section 1: El Gancho - Intro con foto */
+        .section-hook {
+            background: linear-gradient(135deg, #001122 0%, #1a1a1a 100%);
+            flex-direction: column;
+            padding-right: 120px;
+        }
+
+        .intro-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 70px;
+            align-items: center;
+            z-index: 2;
+            margin-right: 80px;
+            margin-left: 120px;
+            position: relative;
+        }
+
+        .intro-left {
+            text-align: left;
+        }
+
+        .intro-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 6vw, 84px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            color: #f0f0f0;
+        }
+
+        .intro-title .highlight {
+            color: #ffffff;
+            display: block;
+        }
+
+        .intro-description {
+            font-size: clamp(17px, 2vw, 26px);
+            line-height: 1.75;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 400;
+            max-width: 95%;
+        }
+
+        .intro-right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            transition: all 0.6s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Section 2: El Problema y la Acción */
+        .section-problem {
+            background: linear-gradient(135deg, #001122 0%, #1a1a1a 100%);
+        }
+
+        .problem-content {
+            max-width: 1400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .problem-text {
+            width: 100%;
+            text-align: center;
+        }
+
+        .problem-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4.5vw, 56px);
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #f0f0f0;
+            line-height: 1.2;
+        }
+
+        .problem-text .intro {
+            font-size: clamp(18px, 2vw, 24px);
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 60px;
+            line-height: 1.5;
+        }
+
+        .problem-text p {
+            font-size: clamp(15px, 1.6vw, 19px);
+            line-height: 1.9;
+            color: #b0b0b0;
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+
+        .problem-visual {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0;
+            padding: 50px;
+        }
+
+        .stat-box {
+            margin-bottom: 40px;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            border-left: 3px solid #ffffff;
+            padding-left: 30px;
+        }
+
+        .stat-box .number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 5.5vw, 64px);
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .stat-box .label {
+            font-size: clamp(13px, 1.4vw, 17px);
+            color: #909090;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* Section 3: Lo que hago */
+        .section-traction {
+            background: linear-gradient(135deg, #001122 0%, #1a1a1a 100%);
+        }
+
+        .traction-content {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .traction-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(42px, 5vw, 72px);
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .traction-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #D32F2F, #B71C1C);
+            border-radius: 2px;
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .traction-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .traction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #D32F2F, #B71C1C, #D32F2F);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .traction-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(211, 47, 47, 0.3);
+        }
+
+        .traction-card:hover::before {
+            opacity: 1;
+        }
+
+        .traction-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #D32F2F;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .traction-card p {
+            color: #e0e0e0;
+            line-height: 1.7;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        /* Enhanced section highlights */
+        .section-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .highlight-metric {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(211, 47, 47, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .highlight-metric:hover {
+            transform: scale(1.05);
+            border-color: #D32F2F;
+            box-shadow: 0 10px 30px rgba(211, 47, 47, 0.2);
+        }
+
+        .metric-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #D32F2F;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .metric-description {
+            font-size: 14px;
+            color: #b0b0b0;
+            font-weight: 400;
+        }
+
+        .traction-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4.5vw, 56px);
+            font-weight: 700;
+            margin-bottom: 60px;
+            text-align: center;
+            color: #f0f0f0;
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .traction-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px; /* Elegant border radius */
+            padding: 0;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .traction-card .card-header {
+            background: linear-gradient(135deg, #1a1818, #2a0b0b); /* Professional deep red/dark */
+            padding: 20px 30px;
+            border-bottom: 3px solid #D32F2F; /* Accent color matching red theme */
+            z-index: 1;
+        }
+
+        .traction-card .card-body {
+            padding: 30px;
+            position: relative;
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #000; /* Fallback for contrast */
+        }
+
+        .traction-card .card-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.25; /* Good visibility of backgrounds while reading text */
+            z-index: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .traction-card.research .card-body::before {
+            background-image: url('images/traction-card-research.jpg.png');
+        }
+
+        .traction-card.business-solutions .card-body::before {
+            background-image: url('images/traction-card-business-solutions.jpg.png');
+        }
+
+        .traction-card.business-scaling .card-body::before {
+            background-image: url('images/traction-card-business-scaling.jpg.png');
+        }
+
+        .traction-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(211, 47, 47, 0.4);
+        }
+
+        .traction-card:hover .card-body::before {
+            opacity: 0.4;
+            transform: scale(1.05); /* Slight zoom for photorealistic bg */
+        }
+
+        .traction-card h3 {
+            font-size: clamp(18px, 2vw, 22px);
+            color: #ffffff;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .traction-card p {
+            font-size: clamp(14px, 1.4vw, 17px);
+            line-height: 1.8;
+            color: #ffffff;
+            font-weight: 300;
+            margin: 0;
+            position: relative;
+            z-index: 1; /* Keep above background */
+        }
+
+        .traction-card .metric {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            color: #f0f0f0;
+            margin: 28px 0;
+        }
+
+        /* Section 4: La Visión */
+        .section-vision {
+            background: linear-gradient(135deg, #001122 0%, #1a1a1a 100%);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .vision-content {
+            max-width: 900px;
+        }
+
+        .vision-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4.5vw, 56px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .tricolon {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tricolon-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, rgba(200, 30, 30, 0.8) 0%, rgba(130, 10, 10, 0.9) 100%); /* High-visibility corporate red, matches Slide 1 */
+            border-radius: 6px;
+            border: 1px solid rgba(255, 60, 60, 0.4);
+            box-shadow: 0 4px 15px rgba(200, 30, 30, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tricolon-item::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
+        .tricolon-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 100, 100, 0.6);
+            box-shadow: 0 8px 25px rgba(200, 30, 30, 0.5);
+            background: linear-gradient(135deg, rgba(220, 40, 40, 0.9) 0%, rgba(150, 15, 15, 1) 100%);
+        }
+
+        .tricolon-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(16px, 2.2vw, 22px);
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0;
+            margin-top: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .vision-statement {
+            font-size: clamp(16px, 1.8vw, 21px); /* Slightly reduced to guarantee fit */
+            line-height: 1.5;
+            color: #e0e0e0;
+            font-weight: 400;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0;
+            border-left: 3px solid #ffffff;
+        }
+
+        /* Customize scrollbar for vision statement */
+        .vision-statement::-webkit-scrollbar {
+            width: 8px;
+        }
+        .vision-statement::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        .vision-statement::-webkit-scrollbar-thumb {
+            background: rgba(76, 175, 80, 0.5);
+            border-radius: 4px;
+        }
+        .vision-statement::-webkit-scrollbar-thumb:hover {
+            background: rgba(76, 175, 80, 0.8);
+        }
+
+        /* Cinematic Video Animation Styles */
+        .cinematic-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 60px auto 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-frame {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #000;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0; /* Hide inactive scenes */
+            transform: scale(1.1);
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .scene.active {
+            opacity: 1; /* Show active scene */
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        /* Scene Information Overlay */
+        .scene-info {
+            position: absolute;
+            bottom: 35px;
+            left: 10px;
+            right: 10px;
+            z-index: 4;
+        }
+
+        .scene-label {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s ease;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 8px 14px;
+            border-radius: 4px;
+            border-left: 3px solid #D32F2F;
+            margin-bottom: 4px;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(211, 47, 47, 0.4); color: #D32F2F; }
+            50% { text-shadow: 0 0 15px rgba(211, 47, 47, 1), 0 0 25px rgba(211, 47, 47, 0.8); color: #FF5252; }
+        }
+
+        .scene-label.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scene-label.active .phase {
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        .scene-label .phase {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: #D32F2F;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .scene-label .description {
+            display: block;
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 400;
+        }
+
+        /* Progress Bar */
+        .video-progress {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            right: 10px;
+            z-index: 4;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #B71C1C, #D32F2F);
+            border-radius: 2px;
+            width: 16.67%; /* 1/6 of the progress */
+            transition: width 1.5s ease;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .progress-labels span {
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .progress-labels span.active {
+            color: #D32F2F;
+            font-weight: 700;
+            transform: scale(1.1);
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 968px) {
+            .scene-label .phase {
+                font-size: 12px;
+            }
+
+            .scene-label .description {
+                font-size: 10px;
+            }
+
+            .progress-labels {
+                font-size: 8px;
+            }
+        }
+
+        /* Animated Elements for Each Scene */
+        .scene.scene-1::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: -10%;
+            width: 20%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #D32F2F, transparent);
+            animation: dataStream 3s infinite;
+        }
+
+        .scene.scene-2::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            right: -5%;
+            width: 15%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #2196F3, transparent);
+            animation: dataFlow 2.5s infinite;
+        }
+
+        .scene.scene-3::before {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FF9800, #FF5722, #FF9800, transparent);
+            animation: scanBeam 2s infinite;
+        }
+
+        .scene.scene-4::after {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            left: 15%;
+            width: 8px;
+            height: 8px;
+            background: #D32F2F;
+            border-radius: 50%;
+            animation: processingPulse 1.5s infinite;
+        }
+
+        }
+
+        /* Section 5: El Cierre */
+        .section-close {
+            background: linear-gradient(135deg, #001122 0%, #1a1a1a 100%);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .close-content {
+            max-width: 1000px;
+        }
+
+        .close-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4.5vw, 56px);
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #f0f0f0;
+        }
+
+        .close-content .value-prop {
+            font-size: clamp(17px, 2vw, 24px);
+            line-height: 1.9;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .close-content .cta {
+            font-size: clamp(19px, 2.2vw, 28px);
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 60px;
+            padding: 45px 50px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 4px solid #ffffff;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+            }
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .progress-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            margin: 14px 0;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .progress-dot.active {
+            background: #ffffff;
+            transform: scale(1.5);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-dot:hover {
+            background: #ffffff;
+            transform: scale(1.3);
+        }
+
+        /* Lower Third for Milestones */
+        .lower-third {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            transform: translateY(20px);
+            width: 100%;
+            max-width: none;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%); /* Peruvian red gradient */
+            border: 2px solid #FFFFFF; /* Thinner white border for news style */
+            border-radius: 8px;
+            padding: 12px 15px;
+            box-shadow: 0 4px 16px rgba(211, 47, 47, 0.4);
+            z-index: 2;
+        }
+
+        .lower-third h3 {
+            display: none; /* Hide the old title */
+        }
+
+        .trayectoria-label {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 2.5vw, 26px);
+            font-weight: 700;
+            color: #FFFFFF;
+            display: inline;
+            margin-right: 15px;
+            letter-spacing: 1px;
+        }
+
+        .milestones {
+            position: relative;
+            width: 100%;
+            min-height: 35px; /* Reduced height */
+            overflow: hidden;
+        }
+
+        .milestone {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+            padding: 5px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .milestone.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .milestone-year {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(14px, 1.8vw, 18px);
+            font-weight: 700;
+            color: #FFFFFF;
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .milestone-text {
+            font-size: clamp(18px, 2.2vw, 22px);
+            color: #F5F5F5;
+            line-height: 1.2;
+            font-weight: 500;
+            display: inline;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .section {
+                padding: 80px 30px;
+            }
+
+            .intro-container,
+            .problem-content,
+            .traction-grid,
+            .tricolon {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .section-number {
+                font-size: 80px;
+                top: 40px;
+                left: 30px;
+            }
+
+            .section-number-right {
+                left: auto;
+                right: 30px;
+            }
+
+            .section-label {
+                top: 40px;
+                left: 30px;
+            }
+
+            .section-label-right {
+                left: auto;
+                right: 30px;
+            }
+
+            .profile-image-container {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .intro-right {
+                order: -1;
+            }
+
+            .progress-indicator {
+                right: 20px;
+            }
+
+            .progress-dot {
+                width: 6px;
+                height: 6px;
+                margin: 15px 0;
+            }
+
+            .video-frame {
+                height: 250px;
+            }
+
+            .scene-label {
+                bottom: 15px;
+                left: 15px;
+                right: 15px;
+            }
+
+            .scene-label .phase {
+                font-size: 14px;
+            }
+
+            .scene-label .description {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-dot active" data-section="0"></div>
+        <div class="progress-dot" data-section="1"></div>
+        <div class="progress-dot" data-section="2"></div>
+        <div class="progress-dot" data-section="3"></div>
+        <div class="progress-dot" data-section="4"></div>
+    </div>
+
+    <!-- Graph Zoom Overlay -->
+    <div class="graph-zoom" id="graphZoom">
+        <img id="zoomedGraph" src="" alt="Zoomed Graph">
+    </div>
+
+    <!-- Scroll Container -->
+    <div class="scroll-container" id="scrollContainer">
+        
+        <!-- Section 1: El Gancho (0:00 - 0:15) -->
+        <section class="section section-hook" data-section="0">
+            <div class="section-number">01</div>
+            <div class="section-label">SOBRE MÍ</div>
+            <div class="particles" id="particles1"></div>
+            <div class="intro-container">
+                <div class="intro-left">
+                    <h1 class="intro-title">
+                        Diego Salas
+                        <span class="highlight">━━━━━━</span>
+                    </h1>
+                    <p class="intro-description" style="color: #ffffff;">
+                        Investigador computacional especializado en resolver problemas de datos complejos mediante automatización y machine learning. De investigación académica a productos con revenue.
+                    </p>
+                </div>
+                <div class="intro-right">
+                    <div class="profile-image-container">
+                        <img src="images/DiegoPicv1.png" alt="Diego Salas" class="profile-image">
+                    </div>
+                </div>
+
+                <!-- Lower Third with Milestones - Aligned with description -->
+                <div class="lower-third">
+                    <div class="milestones">
+                        <div class="milestone active" data-milestone="0">
+                            <span class="trayectoria-label">Trayectoria:</span>
+                            <div class="milestone-text">Miembro Grupo RANA - Biosafety & Monitoring</div>
+                        </div>
+                        <div class="milestone" data-milestone="1">
+                            <span class="trayectoria-label">Trayectoria:</span>
+                            <div class="milestone-text">Estudiante Bioingeniería UTEC, Lima</div>
+                        </div>
+                        <div class="milestone" data-milestone="2">
+                            <span class="trayectoria-label">Trayectoria:</span>
+                            <div class="milestone-text">Intern Research PROHVILLA - 88% Eficiencia Mejorada</div>
+                        </div>
+                        <div class="milestone" data-milestone="3">
+                            <span class="trayectoria-label">Trayectoria:</span>
+                            <div class="milestone-text">Co-Founder Lux Epoxy - 150% Crecimiento Revenue</div>
+                        </div>
+                        <div class="milestone" data-milestone="4">
+                            <span class="trayectoria-label">Trayectoria:</span>
+                            <div class="milestone-text">Publicaciones Internacionales - Conferencias ICBEB & Biostat</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: El Problema y la Acción (0:15 - 0:40) -->
+        <section class="section section-problem" data-section="1">
+            <div class="section-number section-number-right">02</div>
+            <div class="section-label section-label-right">OPTIMIZACIÓN</div>
+            <div class="particles" id="particles2"></div>
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h2>Pipeline de Optimización</h2>
+                    <p class="intro">Ministerio del Ambiente - Perú</p>
+
+                    <!-- Cinematic Video Animation -->
+                    <div class="cinematic-container">
+                        <div class="video-frame">
+                            <!-- Scene Images -->
+                            <img src="./images/2026-04-22T15-01-16_Scene_1_INPUT_A_cinematic_wide_shot_of_a_sleek.png" alt="INPUT - Data Ingestion" class="scene scene-1 active">
+                            <img src="./images/2026-04-22T15-01-39_Scene_2_INGESTION_Dynamic_medium_shot_showing_t.png" alt="INGESTION - Data Transport" class="scene scene-2">
+                            <img src="./images/2026-04-22T15-01-51_Scene_3_CLEANING_Action-oriented_shot_of_the_co.png" alt="CLEANING - Data Validation" class="scene scene-3">
+                            <img src="./images/2026-04-22T15-02-14_Scene_4_ANALYSIS_Close-up_view_of_a_precise_rob.png" alt="ANALYSIS - Data Processing" class="scene scene-4">
+                            <img src="./images/2026-04-22T15-02-29_Scene_5_VISUALIZATION_Cinematic_zoom-out_transi.png" alt="VISUALIZATION - Data Display" class="scene scene-5">
+                            <img src="./images/2026-04-22T15-02-44_Scene_6_OUTPUT_Wide_establishing_shot_of_a_high.png" alt="OUTPUT - Report Generation" class="scene scene-6">
+
+                            <!-- Scene Information Overlay -->
+                            <div class="scene-info">
+                                <div class="scene-label scene-label-1 active">
+                                    <span class="phase">INPUT</span>
+                                    <span class="description">Data Ingestion</span>
+                                </div>
+                                <div class="scene-label scene-label-2">
+                                    <span class="phase">INGESTION</span>
+                                    <span class="description">Data Transport</span>
+                                </div>
+                                <div class="scene-label scene-label-3">
+                                    <span class="phase">CLEANING</span>
+                                    <span class="description">Data Validation</span>
+                                </div>
+                                <div class="scene-label scene-label-4">
+                                    <span class="phase">ANALYSIS</span>
+                                    <span class="description">Data Processing</span>
+                                </div>
+                                <div class="scene-label scene-label-5">
+                                    <span class="phase">VISUALIZATION</span>
+                                    <span class="description">Data Display</span>
+                                </div>
+                                <div class="scene-label scene-label-6">
+                                    <span class="phase">OUTPUT</span>
+                                    <span class="description">Report Generation</span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="video-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <div class="progress-labels">
+                                    <span>INPUT</span>
+                                    <span>INGESTION</span>
+                                    <span>CLEANING</span>
+                                    <span>ANALYSIS</span>
+                                    <span>VISUALIZATION</span>
+                                    <span>OUTPUT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Lo que hago (0:40 - 1:00) -->
+        <section class="section section-traction" data-section="2">
+            <div class="section-number" style="color: #D32F2F; text-shadow: 0 0 20px rgba(211, 47, 47, 0.3);">03</div>
+            <div class="section-label" style="color: #B71C1C; border-left: 3px solid #D32F2F;">LO QUE HAGO</div>
+            <div class="particles" id="particles3"></div>
+            <div class="traction-content">
+                <h2>Lo que hago</h2>
+                <div class="traction-grid">
+                    <div class="traction-card research">
+                        <div class="card-header">
+                            <h3>Investigaciones</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Producción de análisis científico-técnico en bioingeniería y genómica computacional. Publicaciones en conferencias internacionales sobre resistencia antimicrobiana y estratificación de riesgos en S. pyogenes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="traction-card business-solutions">
+                        <div class="card-header">
+                            <h3>Soluciones Empresariales</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Desarrollo de sistemas automatizados para análisis masivo de datos mediante pipelines de procesamiento que manejan grandes volúmenes, detección de anomalías, generación de reportes regulatorios y visualizaciones ejecutivas. Ejemplo: Automatización en PROHVILLA redujo tiempo de reportes de 2 meses a 1 semana (88% mejora).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="traction-card business-scaling">
+                        <div class="card-header">
+                            <h3>Escalamiento de Negocios</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Capacidad para liderar equipos técnicos en startups tech, llevar productos de concepto a revenue mediante simulaciones computacionales, optimización de procesos industriales y validación técnico-comercial. Co-fundador de Lux Epoxy: 150% crecimiento anual en revenue.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced section styling with professional corporate design -->
+                <div class="section-highlights">
+                    <div class="highlight-metric">
+                        <div class="metric-number">88%</div>
+                        <div class="metric-label">Mejora en Eficiencia</div>
+                        <div class="metric-description">Reducción de tiempo de reportes</div>
+                    </div>
+                    <div class="highlight-metric">
+                        <div class="metric-number">150%</div>
+                        <div class="metric-label">Crecimiento Anual</div>
+                        <div class="metric-description">Revenue en Lux Epoxy</div>
+                    </div>
+                    <div class="highlight-metric">
+                        <div class="metric-number">3+</div>
+                        <div class="metric-label">Años de Experiencia</div>
+                        <div class="metric-description">En investigación y desarrollo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: La Visión (1:00 - 1:10) -->
+        <section class="section section-vision" data-section="3">
+            <div class="section-number section-number-right">04</div>
+            <div class="section-label section-label-right">VISIÓN</div>
+            <div class="particles" id="particles4"></div>
+            <div class="vision-content">
+                <h2>La Visión</h2>
+                
+                <div class="tricolon">
+                    <div class="tricolon-item">
+                        <h3>Analizo Datos</h3>
+                    </div>
+                    <div class="tricolon-item">
+                        <h3>Construyo Soluciones</h3>
+                    </div>
+                    <div class="tricolon-item">
+                        <h3>Escalo Negocios</h3>
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px; text-align: center;">
+                    <img src="images/Slide5_V2.png" alt="Visión Central" style="width: 100%; max-width: 900px; max-height: 48vh; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); object-fit: cover;">
+                </div>
+
+                <div class="vision-statement" style="margin-top: 15px; text-align: left; border-radius: 8px; border-left: 5px solid #D32F2F; background: #1a1818; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+                    Mi meta profesional es convertirme en Ingeniero de Productos Genómicos en Medicina de Precisión, aplicando Ingeniería de Software para desarrollar herramientas predictivas innovadoras. Quiero resolver problemas complejos que importan, liderando equipos técnicos que lleven investigación de vanguardia a productos con impacto real.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: El Cierre Conversacional (1:10 - 1:20) -->
+        <section class="section section-close" data-section="4">
+            <div class="section-number">05</div>
+            <div class="section-label">EL CIERRE</div>
+            <div class="particles" id="particles5"></div>
+            <div class="close-content" style="text-align: center; width: 100%;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 700; margin-bottom: 10px; color: #f0f0f0;">
+                    El Cierre
+                </h2>
+                <p class="value-prop" style="font-size: clamp(16px, 1.8vw, 20px); margin-bottom: 15px; color: #e0e0e0; font-weight: 300;">
+                    Conversemos sobre cómo puedo aportar valor a su organización.
+                </p>
+
+                <div style="margin-top: 10px; text-align: center;">
+                    <img src="images/Slide5_image03.png" alt="Cierre Central" style="width: 100%; max-width: 900px; max-height: 48vh; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); object-fit: cover;">
+                </div>
+
+                <!-- Business Card styled using Slide 4's elegant dark red block format -->
+                <div style="display: flex; justify-content: center;">
+                    <div style="margin-top: 15px; text-align: left; width: 100%; max-width: 800px; padding: 25px 40px; border-radius: 8px; border-left: 5px solid #D32F2F; background: #0e0e1a; box-shadow: 0 8px 32px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                        
+                        <div style="flex: 1; min-width: 250px;">
+                            <strong style="color: #ffffff; font-size: clamp(22px, 2.5vw, 28px); font-weight: 700; font-family: 'Playfair Display', serif; display: block; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
+                                Diego G. Salas Chirinos
+                            </strong>
+                            <span style="color: #D32F2F; font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">
+                                Innovación y Escalamiento
+                            </span>
+                        </div>
+
+                        <div style="flex: 1; min-width: 250px; font-size: 15px; color: #d0d0d0; line-height: 1.8; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                            <span style="display: block;">&#9993; <span style="color: #ffffff;">dgsalaschirinos@gmail.com</span></span>
+                            <span style="display: block;">&#128222; <span style="color: #ffffff;">+51 991286650</span></span>
+                            <span style="display: block;">&#128188; LinkedIn: <span style="color: #ffffff;">/in/diego-salas-bio</span></span>
+                            <span style="display: block;">&#128187; GitHub: <span style="color: #ffffff;">/Diego</span> | IG: <span style="color: #ffffff;">@caseriovalens</span></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Generate particles
+        function generateParticles(containerId, count) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Generate particles for each section
+        generateParticles('particles1', 30);
+        generateParticles('particles2', 30);
+        generateParticles('particles3', 30);
+        generateParticles('particles4', 30);
+        generateParticles('particles5', 30);
+
+        // Progress indicator functionality
+        const scrollContainer = document.getElementById('scrollContainer');
+        const sections = document.querySelectorAll('.section');
+        const progressDots = document.querySelectorAll('.progress-dot');
+
+        // Update active dot on scroll
+        scrollContainer.addEventListener('scroll', () => {
+            const scrollPosition = scrollContainer.scrollTop;
+            const windowHeight = window.innerHeight;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop - windowHeight / 2 && 
+                    scrollPosition < sectionTop + sectionHeight - windowHeight / 2) {
+                    progressDots.forEach(dot => dot.classList.remove('active'));
+                    progressDots[index].classList.add('active');
+                }
+            });
+        });
+
+        // Click on dots to navigate
+        progressDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                sections[index].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentSection = document.querySelector('.progress-dot.active').dataset.section;
+            const currentIndex = parseInt(currentSection);
+            
+            if (e.key === 'ArrowDown' && currentIndex < sections.length - 1) {
+                sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                sections[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Graph Zoom Functionality
+        const graphZoom = document.getElementById('graphZoom');
+        const zoomedGraph = document.getElementById('zoomedGraph');
+        let zoomTimeout;
+
+        // Add hover and click events to all graph images
+        document.querySelectorAll('.graph-image').forEach(img => {
+            img.addEventListener('mouseenter', () => {
+                // Clear any existing timeout
+                clearTimeout(zoomTimeout);
+                
+                // Set timeout for zoom (slight delay to prevent accidental zooms)
+                zoomTimeout = setTimeout(() => {
+                    zoomedGraph.src = img.src;
+                    graphZoom.classList.add('active');
+                }, 500); // 500ms delay
+            });
+
+            img.addEventListener('mouseleave', () => {
+                // Clear timeout if mouse leaves before zoom
+                clearTimeout(zoomTimeout);
+            });
+        });
+
+        // Click to close zoom
+        graphZoom.addEventListener('click', () => {
+            graphZoom.classList.remove('active');
+        });
+
+        // Also close on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && graphZoom.classList.contains('active')) {
+                graphZoom.classList.remove('active');
+            }
+        });
+
+        // Lower Third Milestone Carousel
+        const milestones = document.querySelectorAll('.milestone');
+        let currentMilestone = 0;
+        const milestoneInterval = 3000; // 3 seconds
+
+        function showNextMilestone() {
+            // Hide current milestone
+            milestones[currentMilestone].classList.remove('active');
+            
+            // Move to next milestone
+            currentMilestone = (currentMilestone + 1) % milestones.length;
+            
+            // Show next milestone
+            milestones[currentMilestone].classList.add('active');
+        }
+
+        // Start carousel when page loads
+        setInterval(showNextMilestone, milestoneInterval);
+
+        // Cinematic Video Animation Control
+        const scenes = document.querySelectorAll('.scene');
+        const sceneLabels = document.querySelectorAll('.scene-label');
+        const progressFill = document.querySelector('.progress-fill');
+        const progressLabels = document.querySelectorAll('.progress-labels span');
+        let currentScene = 0;
+        const sceneDuration = 4000; // 4 seconds per scene
+
+        function showNextScene() {
+            // Hide current scene and label
+            scenes[currentScene].classList.remove('active');
+            sceneLabels[currentScene].classList.remove('active');
+            progressLabels[currentScene].classList.remove('active');
+            console.log('Deactivated scene:', currentScene);
+
+            // Move to next scene
+            currentScene = (currentScene + 1) % scenes.length;
+
+            // Show next scene and label
+            scenes[currentScene].classList.add('active');
+            sceneLabels[currentScene].classList.add('active');
+            progressLabels[currentScene].classList.add('active');
+
+            // Update progress bar (16.67% per scene for 6 scenes)
+            const progressPercent = ((currentScene + 1) / scenes.length) * 100;
+            progressFill.style.width = progressPercent + '%';
+
+            console.log('Activated scene:', currentScene, 'Progress:', progressPercent + '%');
+        }
+
+        // Start cinematic animation when page loads
+        setTimeout(() => {
+            console.log('Starting cinematic animation...');
+            console.log('Scenes found:', scenes.length);
+            console.log('Scene labels found:', sceneLabels.length);
+            scenes[0].classList.add('active');
+            sceneLabels[0].classList.add('active');
+            progressLabels[0].classList.add('active');
+            progressFill.style.width = '16.67%'; // Start with 1/6 progress
+            console.log('Scene 0 activated');
+            setInterval(showNextScene, sceneDuration);
+        }, 1000); // Start after 1 second delay
+    </script>
+</body>
+</html>
